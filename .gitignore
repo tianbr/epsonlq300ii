@@ -1,0 +1,6 @@
+# Build-Ergebnisse
+rastertoescplq
+texttoescplq
+dist/
+__pycache__/
+*.deb

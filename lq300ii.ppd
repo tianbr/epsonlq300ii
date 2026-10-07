@@ -1,0 +1,223 @@
+*PPD-Adobe: "4.3"
+*FormatVersion: "4.3"
+*FileVersion: "2.0"
+*% SPDX-License-Identifier: MIT
+*% Copyright (c) 2026 LQ300II driver contributors
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "lq300ii.ppd"
+*Manufacturer: "EPSON"
+*Product: "(LQ-300+II)"
+*ModelName: "EpsonLQ300+ii"
+*ShortNickName: "EpsonLQ300+ii"
+*NickName: "EpsonLQ300+ii"
+*PSVersion: "(3010.000) 0"
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "1"
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+
+*cupsVersion: 1.2
+*cupsModelNumber: 1
+*cupsManualCopies: True
+*cupsFilter: "application/vnd.cups-raster 0 rastertoescplq"
+*cupsFilter: "text/plain 0 texttoescplq"
+*cupsLanguages: "de"
+
+*OpenUI *ColorModel/Color mode: PickOne
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Gray
+*ColorModel Gray/Black and white (grayscale, black only): "<</cupsColorSpace 0/cupsColorOrder 0/cupsBitsPerColor 8>>setpagedevice"
+*ColorModel RGB/Color (color ribbon required): "<</cupsColorSpace 1/cupsColorOrder 0/cupsBitsPerColor 8>>setpagedevice"
+*CloseUI: *ColorModel
+
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 20 AnySetup *Resolution
+*DefaultResolution: 360x180dpi
+*Resolution 120x180dpi/120 x 180 dpi (fastest): "<</HWResolution[120 180]>>setpagedevice"
+*Resolution 180x180dpi/180 x 180 dpi (fast): "<</HWResolution[180 180]>>setpagedevice"
+*Resolution 360x180dpi/360 x 180 dpi: "<</HWResolution[360 180]>>setpagedevice"
+*Resolution 360x360dpi/360 x 360 dpi (best quality, slow; not possible with color): "<</HWResolution[360 360]>>setpagedevice"
+*CloseUI: *Resolution
+
+*% Warning in the print dialogs: 360x360 dpi prints every color twice and strains the color ribbon
+*UIConstraints: *ColorModel RGB *Resolution 360x360dpi
+*UIConstraints: *Resolution 360x360dpi *ColorModel RGB
+
+*OpenUI *LQMerge/Fast printing of identical dot pairs: PickOne
+*OrderDependency: 29 AnySetup *LQMerge
+*DefaultLQMerge: On
+*LQMerge On/On (identical areas once at 180 dpi): ""
+*LQMerge Off/Off (always two passes at 360 dpi): ""
+*CloseUI: *LQMerge
+
+*OpenUI *LQOnePass/Print intensity at 360 dpi: PickOne
+*OrderDependency: 28 AnySetup *LQOnePass
+*DefaultLQOnePass: On
+*LQOnePass On/Normal (one pass, like Windows, fast): ""
+*LQOnePass Off/Intensive (a bit darker, half as fast; no effect at 360x360): ""
+*CloseUI: *LQOnePass
+
+*OpenUI *LQDither/Halftoning: PickOne
+*OrderDependency: 30 AnySetup *LQDither
+*DefaultLQDither: Auto
+*LQDither Auto/Automatic (sharp text, halftoned areas): ""
+*LQDither Cluster/Clustered dots 45 degrees (sharp text, areas as round dots): ""
+*LQDither Bayer/Ordered (Bayer): ""
+*LQDither FloydSteinberg/Error diffusion: ""
+*LQDither Threshold/Threshold (text and line art only): ""
+*CloseUI: *LQDither
+
+*OpenUI *LQDensity/Density: PickOne
+*OrderDependency: 31 AnySetup *LQDensity
+*DefaultLQDensity: Contrast
+*LQDensity Light/Light: ""
+*LQDensity Normal/Normal: ""
+*LQDensity Dark/Dark: ""
+*LQDensity Contrast/Contrast (dark tones better separated, like Windows): ""
+*LQDensity Raw/Calibration (no tone curve): ""
+*CloseUI: *LQDensity
+
+*OpenUI *LQDirection/Print direction: PickOne
+*OrderDependency: 32 AnySetup *LQDirection
+*DefaultLQDirection: Adaptive
+*LQDirection Auto/As printer setting (firmware): ""
+*LQDirection Adaptive/Automatic per band (lines, barcodes, text unidirectional): ""
+*LQDirection Bidi/Bidirectional (fast; color bands always unidirectional): ""
+*LQDirection Uni/Unidirectional (precise, like "High Speed Off"): ""
+*CloseUI: *LQDirection
+
+*OpenUI *LQCharset/Character set (text): PickOne
+*OrderDependency: 50 AnySetup *LQCharset
+*DefaultLQCharset: ISO8859-15
+*LQCharset ISO8859-15/ISO 8859-15 (Latin 9, with Euro): ""
+*LQCharset PC858/PC 858 (with Euro): ""
+*LQCharset PC850/PC 850 (Multilingual): ""
+*LQCharset ISO8859-1/ISO 8859-1 (Latin 1): ""
+*LQCharset PC437/PC 437 (US): ""
+*LQCharset Roman8/Roman 8: ""
+*CloseUI: *LQCharset
+
+*OpenUI *LQQuality/Text quality: PickOne
+*OrderDependency: 52 AnySetup *LQQuality
+*DefaultLQQuality: LQ
+*LQQuality LQ/Letter quality (LQ): ""
+*LQQuality Draft/Draft (fast): ""
+*CloseUI: *LQQuality
+
+*OpenUI *InputSlot/Paper source: PickOne
+*OrderDependency: 35 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Auto/Automatic (paper select lever on the printer): ""
+*InputSlot Feeder/Cut sheet feeder (accessory): ""
+*CloseUI: *InputSlot
+
+*OpenUI *PageSize/Paper size: PickOne
+*OrderDependency: 40 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A4/A4: "<</PageSize[595.28 841.89]/ImagingBBox null>>setpagedevice"
+*PageSize A5/A5: "<</PageSize[419.53 595.28]/ImagingBBox null>>setpagedevice"
+*PageSize Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageSize Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageSize Fanfold_A4/A4 continuous (tractor): "<</PageSize[595.28 841.89]/ImagingBBox null>>setpagedevice"
+*PageSize Fanfold_210x12/210 mm x 12 inch continuous (tractor): "<</PageSize[595.28 864]/ImagingBBox null>>setpagedevice"
+*PageSize Fanfold_240x12/240 mm x 12 inch continuous (tractor): "<</PageSize[680.31 864]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion/Paper size: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A4/A4: "<</PageSize[595.28 841.89]/ImagingBBox null>>setpagedevice"
+*PageRegion A5/A5: "<</PageSize[419.53 595.28]/ImagingBBox null>>setpagedevice"
+*PageRegion Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageRegion Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageRegion Fanfold_A4/A4 continuous (tractor): "<</PageSize[595.28 841.89]/ImagingBBox null>>setpagedevice"
+*PageRegion Fanfold_210x12/210 mm x 12 inch continuous (tractor): "<</PageSize[595.28 864]/ImagingBBox null>>setpagedevice"
+*PageRegion Fanfold_240x12/240 mm x 12 inch continuous (tractor): "<</PageSize[680.31 864]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: A4
+*ImageableArea A4/A4: "8.5 18.4 584.50 829.89"
+*ImageableArea A5/A5: "8.5 18.4 411.03 583.28"
+*ImageableArea Letter/US Letter: "8.5 18.4 584.50 780.00"
+*ImageableArea Legal/US Legal: "8.5 18.4 584.50 996.00"
+*ImageableArea Fanfold_A4/A4 continuous (tractor): "36.85 18.4 558.43 816.39"
+*ImageableArea Fanfold_210x12/210 mm x 12 inch continuous (tractor): "36.85 18.4 558.43 838.50"
+*ImageableArea Fanfold_240x12/240 mm x 12 inch continuous (tractor): "36.85 18.4 612.85 838.50"
+
+*DefaultPaperDimension: A4
+*PaperDimension A4/A4: "595.28 841.89"
+*PaperDimension A5/A5: "419.53 595.28"
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Legal/US Legal: "612 1008"
+*PaperDimension Fanfold_A4/A4 continuous (tractor): "595.28 841.89"
+*PaperDimension Fanfold_210x12/210 mm x 12 inch continuous (tractor): "595.28 864"
+*PaperDimension Fanfold_240x12/240 mm x 12 inch continuous (tractor): "680.31 864"
+
+*MaxMediaWidth: "680.31"
+*MaxMediaHeight: "1008"
+*HWMargins: 0 0 0 0
+
+*% German translation
+*de.Translation ColorModel/Farbmodus: ""
+*de.ColorModel Gray/Schwarz-Weiß (Graustufen, nur Schwarz): ""
+*de.ColorModel RGB/Farbe (Farbband erforderlich): ""
+*de.Translation Resolution/Auflösung: ""
+*de.Resolution 120x180dpi/120 x 180 dpi (am schnellsten): ""
+*de.Resolution 180x180dpi/180 x 180 dpi (schnell): ""
+*de.Resolution 360x360dpi/360 x 360 dpi (beste Qualität, langsam; bei Farbe nicht möglich): ""
+*de.Translation LQMerge/Schnelldruck gleiche Punktpaare: ""
+*de.LQMerge On/An (gleiche Bereiche einmal mit 180 dpi): ""
+*de.LQMerge Off/Aus (immer zwei Durchgänge bei 360 dpi): ""
+*de.Translation LQOnePass/Druckintensität 360 dpi: ""
+*de.LQOnePass On/Normal (ein Durchgang, wie Windows, schnell): ""
+*de.LQOnePass Off/Intensiv (etwas dunkler, halb so schnell; bei 360x360 ohne Wirkung): ""
+*de.Translation LQDither/Rasterung: ""
+*de.LQDither Auto/Automatisch (Text scharf, Flächen gerastert): ""
+*de.LQDither Cluster/Punktraster 45 Grad (Text scharf, Flächen als runde Punkte): ""
+*de.LQDither Bayer/Geordnet (Bayer): ""
+*de.LQDither FloydSteinberg/Fehlerdiffusion: ""
+*de.LQDither Threshold/Schwellwert (nur Text/Strichzeichnung): ""
+*de.Translation LQDensity/Dichte: ""
+*de.LQDensity Light/Hell: ""
+*de.LQDensity Normal/Normal: ""
+*de.LQDensity Dark/Dunkel: ""
+*de.LQDensity Contrast/Kontrast (dunkle Töne besser getrennt, wie Windows): ""
+*de.LQDensity Raw/Kalibrierung (keine Tonkurve): ""
+*de.Translation LQDirection/Druckrichtung: ""
+*de.LQDirection Auto/Wie Druckereinstellung (Firmware): ""
+*de.LQDirection Adaptive/Automatisch je Streifen (Linien, Barcodes, Schrift einseitig): ""
+*de.LQDirection Bidi/Bidirektional (schnell; Farbstreifen immer einseitig): ""
+*de.LQDirection Uni/Unidirektional (präzise, wie "High Speed Off"): ""
+*de.Translation LQCharset/Zeichensatz (Text): ""
+*de.LQCharset ISO8859-15/ISO 8859-15 (Latin 9, mit Euro): ""
+*de.LQCharset PC858/PC 858 (mit Euro): ""
+*de.LQCharset PC850/PC 850 (Multilingual): ""
+*de.Translation LQQuality/Textqualität: ""
+*de.LQQuality LQ/Korrespondenz (LQ): ""
+*de.LQQuality Draft/Entwurf (schnell): ""
+*de.Translation InputSlot/Papierquelle: ""
+*de.InputSlot Auto/Automatisch (Papierwahlhebel am Drucker): ""
+*de.InputSlot Feeder/Einzelblatteinzug (Zubehör): ""
+*de.Translation PageSize/Papierformat: ""
+*de.PageSize Fanfold_A4/A4 Endlos (Traktor): ""
+*de.PageRegion Fanfold_A4/A4 Endlos (Traktor): ""
+*de.PageSize Fanfold_210x12/210 mm x 12 Zoll Endlos (Traktor): ""
+*de.PageRegion Fanfold_210x12/210 mm x 12 Zoll Endlos (Traktor): ""
+*de.PageSize Fanfold_240x12/240 mm x 12 Zoll Endlos (Traktor): ""
+*de.PageRegion Fanfold_240x12/240 mm x 12 Zoll Endlos (Traktor): ""
+*de.Resolution 360x180dpi/360 x 180 dpi: ""
+*de.LQCharset ISO8859-1/ISO 8859-1 (Latin 1): ""
+*de.LQCharset PC437/PC 437 (US): ""
+*de.LQCharset Roman8/Roman 8: ""
+*de.PageSize A4/A4: ""
+*de.PageRegion A4/A4: ""
+*de.PageSize A5/A5: ""
+*de.PageRegion A5/A5: ""
+*de.PageSize Letter/US Letter: ""
+*de.PageRegion Letter/US Letter: ""
+*de.PageSize Legal/US Legal: ""
+*de.PageRegion Legal/US Legal: ""
