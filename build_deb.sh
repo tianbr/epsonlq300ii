@@ -6,7 +6,7 @@
 set -e
 cd "$(dirname "$0")"
 PKG="epsonlq300+ii"
-VER="${1:-2.2}"
+VER="${1:-2.3}"
 # Maintainer field of the package; override with MAINTAINER="Name <address>"
 MAINTAINER="${MAINTAINER:-LQ300II driver contributors <noreply@invalid>}"
 ARCH="$(dpkg --print-architecture)"

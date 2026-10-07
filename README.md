@@ -2,7 +2,7 @@
 
 A driver (PPD, two filters and an optional status monitor) for the 24-pin Epson LQ-300+II
 dot matrix printer (ESC/P2), with and without the color ribbon. Tested with CUPS 2.4 on
-Ubuntu. Driver version 2.2, status monitor version 1.0. This project is not affiliated with Epson.
+Ubuntu. Driver version 2.3, status monitor version 1.1. This project is not affiliated with Epson.
 Developed with the assistance of an AI coding assistant (Claude) and tested on a single printer.
 
 | File | Purpose |
@@ -19,7 +19,7 @@ Developed with the assistance of an AI coding assistant (Claude) and tested on a
 With the package (guide: [INSTALLATION.md](INSTALLATION.md)):
 
 ```bash
-sudo apt install ./epsonlq300+ii_2.2_amd64.deb
+sudo apt install ./epsonlq300+ii_2.3_amd64.deb
 ```
 
 From source: `make`, `sudo make install`, `sudo systemctl restart cups`. The packages are built

@@ -12,7 +12,7 @@ to the `TRANSLATIONS` table at the top of `lq300_monitor.py`.
 ## Install, start, switch off
 
 ```bash
-sudo apt install ./epsonlq300+ii-monitor_1.0_all.deb
+sudo apt install ./epsonlq300+ii-monitor_1.1_all.deb
 ```
 
 The monitor starts by itself at the next login. Start and open it right away:
