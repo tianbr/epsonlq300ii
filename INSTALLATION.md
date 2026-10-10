@@ -6,13 +6,13 @@ There are two independent packages:
 | Package | Contents |
 |---|---|
 | `epsonlq300+ii_2.3_amd64.deb` | the driver: both filters and the PPD (color and black-and-white) |
-| `epsonlq300+ii-monitor_1.1_all.deb` | the status monitor (optional) |
+| `epsonlq300+ii-monitor_1.2_all.deb` | the status monitor (optional) |
 
 ## Requirements
 
 - Ubuntu or Debian on a 64-bit PC (x86-64) with CUPS (tested with 2.4)
 - administrator rights (`sudo`)
-- the file `epsonlq300+ii_2.3_amd64.deb` (and `epsonlq300+ii-monitor_1.1_all.deb` for the monitor),
+- the file `epsonlq300+ii_2.3_amd64.deb` (and `epsonlq300+ii-monitor_1.2_all.deb` for the monitor),
   downloadable from the Releases page of the repository
 
 ## 1. Install the package
@@ -114,7 +114,7 @@ Umlauts, the euro sign and the vertical bar should print correctly.
 ## 4. Status monitor (optional)
 
 ```bash
-sudo apt install ./epsonlq300+ii-monitor_1.1_all.deb
+sudo apt install ./epsonlq300+ii-monitor_1.2_all.deb
 ```
 
 `apt` fetches the required packages (`python3-gi`, `python3-cups`, `gir1.2-gtk-3.0`) and

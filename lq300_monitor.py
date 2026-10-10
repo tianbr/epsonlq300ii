@@ -32,6 +32,7 @@ import time
 # The language comes from LANGUAGE, LC_ALL, LC_MESSAGES or LANG.
 TRANSLATIONS = {
     "de": {
+        "Epson LQ-300+II Print Status": "Epson LQ-300+II Druckstatus",
         "No.": "Nr.",
         "Document": "Dokument",
         "User": "Benutzer",
@@ -158,6 +159,23 @@ TRANSLATIONS = {
 }
 
 
+def ppd_translations(path, lang):
+    """{(option, choice): text} from the "*<lang>.<option> <choice>/<text>" lines of a PPD."""
+    out = {}
+    if lang == "en":
+        return out
+    pat = re.compile(r'\*%s\.(\w+) ([^/\s]+)/(.*?):\s*""' % re.escape(lang))
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            for line in f:
+                m = pat.match(line)
+                if m:
+                    out[(m.group(1), m.group(2))] = m.group(3)
+    except OSError:
+        pass
+    return out
+
+
 def _detect_lang():
     for var in ("LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG"):
         for part in (os.environ.get(var) or "").split(":"):
@@ -263,7 +281,7 @@ try:
 except ImportError:
     cups = None
 
-APP_NAME = "Epson LQ-300+II Print Status"
+APP_NAME = _("Epson LQ-300+II Print Status")
 APP_ID = "org.lq300.Monitor"
 POLL_S = 1
 OPT_KEYS = [("ColorModel", "Color mode"), ("Resolution", "Resolution"),
@@ -590,6 +608,7 @@ class Monitor:
         self.conn = None
         self.queues = set()
         self.queues_checked = 0
+        self.known_done = None    # ids of completed jobs already accounted for
         self.jobs = {}            # id -> attributes of active jobs
         self.last_log = {}        # id -> (state, pages, percent/10, message)
         self.page_start = {}      # id -> (pages done, time)
@@ -894,7 +913,7 @@ class Monitor:
         d.connect("delete-event", lambda *_: self.close_settings())
         d.show_all()
 
-    def close_settings(self, *_):
+    def close_settings(self, *_args):
         if self.settings_dialog:
             self.settings_dialog.destroy()
             self.settings_dialog = None
@@ -937,10 +956,25 @@ class Monitor:
                 finished[jid]["job-id"] = jid
             except cups.IPPError:
                 finished[jid] = dict(self.jobs[jid], **{"job-state": 9})
+        # jobs that started and finished between two polls (short jobs) were never active
+        done = {}
+        for jid, a in c.getJobs(which_jobs="completed", requested_attributes=JOB_ATTRS).items():
+            if a.get("job-printer-uri", "").rsplit("/", 1)[-1] in self.queues:
+                done[jid] = a
+        if self.known_done is None:
+            self.known_done = set(done)          # first poll: do not replay the history
+        for jid in sorted(set(done) - self.known_done - set(finished) - set(now)):
+            try:
+                a = c.getJobAttributes(jid, requested_attributes=JOB_ATTRS)
+            except cups.IPPError:
+                a = done[jid]
+            a["job-id"] = jid
+            finished[jid] = a
+        self.known_done |= set(done)
         return now, finished
 
     # ---------- Actions ----------
-    def on_cancel(self, *_):
+    def on_cancel(self, *_args):
         jid = self.shown_job
         if jid:
             self.cancel_job(jid)
@@ -1014,12 +1048,12 @@ class Monitor:
         model, it = self.qview.get_selection().get_selected()
         return model[it][0] if it else None
 
-    def on_queue_cancel(self, *_):
+    def on_queue_cancel(self, *_args):
         jid = self.selected_job()
         if jid:
             self.cancel_job(jid)
 
-    def on_queue_hold(self, *_):
+    def on_queue_hold(self, *_args):
         jid = self.selected_job()
         if not jid:
             return
@@ -1257,10 +1291,12 @@ class Monitor:
             try:
                 path = self.connect().getPPD(queue)
                 ppd = cups.PPD(path)
+                tr = ppd_translations(path, _detect_lang())
                 for key, _label in OPT_KEYS:
                     opt = ppd.findOption(key)
                     if opt:
-                        res[key] = (opt.defchoice, {c["choice"]: c["text"] for c in opt.choices})
+                        res[key] = (opt.defchoice, {c["choice"]: tr.get((key, c["choice"]), c["text"])
+                                                    for c in opt.choices})
             except Exception:                       # noqa: BLE001
                 pass
             finally:

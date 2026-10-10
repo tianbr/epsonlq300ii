@@ -12,7 +12,7 @@ to the `TRANSLATIONS` table at the top of `lq300_monitor.py`.
 ## Install, start, switch off
 
 ```bash
-sudo apt install ./epsonlq300+ii-monitor_1.1_all.deb
+sudo apt install ./epsonlq300+ii-monitor_1.2_all.deb
 ```
 
 The monitor starts by itself at the next login. Start and open it right away:
@@ -121,11 +121,16 @@ to follow when a job stalled or how long a page really took. Demo mode writes to
 
 - **The monitor sees what the filter has sent, not what has been printed.** The printer reports
   nothing back over LPT (no paper-out, no errors). Between filter and paper there are the pipe,
-  the network, the print server and the printer buffer. If the print server buffers more than
-  expected, the bar runs ahead of the paper. The history file shows this.
+  the network, the print server and the printer buffer. A print server that accepts LPD jobs
+  spools the whole job, so a page that takes minutes to print can be "finished" for CUPS (and
+  the monitor) after about a second. In that case the monitor works as a "job accepted"
+  display; pause, print again and the queue view are still useful. Using the raw port
+  (`socket://<host>:9100`) instead of LPD made no difference on the test setup. Very large jobs
+  (for example color pages) can exceed the print server's buffer, then the progress follows the
+  printing more closely. The history file shows what the monitor saw.
 - If CUPS runs on another computer, the monitor has to connect there
   (`CUPS_SERVER=host lq300-monitor`).
-- Jobs shorter than a second do not appear.
+- Very short jobs that start and finish between two polls are reported as finished afterwards.
 - Pause does not affect the running job, see the button table.
 
 ## Ideas for later

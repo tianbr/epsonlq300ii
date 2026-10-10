@@ -5,7 +5,7 @@
 set -e
 cd "$(dirname "$0")"
 PKG="epsonlq300+ii-monitor"
-VER="${1:-1.1}"
+VER="${1:-1.2}"
 # Maintainer field of the package; override with MAINTAINER="Name <address>"
 MAINTAINER="${MAINTAINER:-LQ300II driver contributors <noreply@invalid>}"
 ROOT="$(mktemp -d)"
